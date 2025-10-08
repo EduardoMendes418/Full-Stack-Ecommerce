@@ -1,8 +1,7 @@
-# Turborepo starter
+# Turborepo
 
-This Turborepo starter is maintained by the Turborepo core team.
-
-## Using this example
+## Project Ecommerce
+<img width="1110" height="916" alt="layout" src="https://github.com/user-attachments/assets/c80489c7-a803-426e-9ad4-5f424cb041ae" />
 
 Run the following command:
 
