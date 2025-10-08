@@ -8,7 +8,7 @@ const Footer = () => {
         <Link href="/" className="flex items-center">
           <Image src="/logo.png" alt="TrendLama" width={36} height={36} />
           <p className="hidden md:block text-md font-medium tracking-wider text-white">
-            TRENDLAMA.
+            TREND.
           </p>
         </Link>
         <p className="text-sm text-gray-400">© 2025 Trendlama.</p>
