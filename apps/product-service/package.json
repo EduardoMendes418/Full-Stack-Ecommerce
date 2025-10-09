@@ -5,14 +5,16 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx --watch index.ts",
+    "dev": "tsx --env-file=.env --watch index.ts",
     "check-types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clerk/express": "^1.7.37",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "5.0.1"
   },
   "devDependencies": {
