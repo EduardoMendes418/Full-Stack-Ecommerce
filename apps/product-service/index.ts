@@ -22,7 +22,7 @@ app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok", timestamp: Date.now() });
 });
 
-app.get("/test", requireAuth(), (req, res) => {
+app.get("/authPage", requireAuth(), (req, res) => {
   const auth = req.auth(); 
   console.log("User ID:", auth.userId);
 
