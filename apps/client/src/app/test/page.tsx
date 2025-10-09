@@ -1,4 +1,4 @@
-import AuthenticationPageViewa from "./AuthenticationPageClient";
+import AuthenticationPageViewa from "./AuthenticationClient";
 
 export default function clientPage() {
   return <AuthenticationPageViewa  />;
