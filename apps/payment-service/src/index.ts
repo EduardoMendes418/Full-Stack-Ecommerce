@@ -20,7 +20,7 @@ const start = async () => {
         port: 8002,
       },
       (info) => {
-        console.log(`Payment service is running on port 8002`);
+        console.log(`✅ Payment service is running on port 8002`);
       }
     );
   } catch (error) {
