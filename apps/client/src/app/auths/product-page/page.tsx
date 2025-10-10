@@ -1,6 +1,6 @@
-import AuthPage from "./AuthenticationClient";
+import AuthPageProduct from "./AuthenticationPageProduct";
 
 export default function clientPage() {
-  return <AuthPage  />;
+  return <AuthPageProduct  />;
 }
  

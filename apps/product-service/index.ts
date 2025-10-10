@@ -1,14 +1,19 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import 'dotenv/config'
+import "dotenv/config";
 import { requireAuth } from "@clerk/express";
-import { clerkMiddleware } from '@clerk/express'
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
-app.use(cors({ origin: ["http://localhost:3002", "http://localhost:3003"], credentials: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:3002", "http://localhost:3003"],
+    credentials: true,
+  })
+);
 app.use(express.json());
-app.use(clerkMiddleware())
+app.use(clerkMiddleware());
 
 declare global {
   namespace Express {
@@ -23,11 +28,11 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 app.get("/auths/product-page", requireAuth(), (req, res) => {
-  const auth = req.auth(); 
+  const auth = req.auth();
   console.log("User ID:", auth.userId);
 
   res.json({
-    message: "Rota protegida acessada",
+    message: "✅ Rota protegida acessada",
     userId: auth.userId,
   });
 });

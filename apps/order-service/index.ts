@@ -1,8 +1,18 @@
+import "dotenv/config.js";
 import Fastify from "fastify";
 import Clerk from "@clerk/fastify";
+import cors from "@fastify/cors";
+
 
 const fastify = Fastify();
-fastify.register(Clerk.clerkPlugin);
+fastify.register(Clerk.clerkPlugin, {
+  secretKey: process.env.CLERK_SECRET_KEY!,
+});
+
+fastify.register(cors, {
+  origin: ["http://localhost:3002"],
+  credentials: true,
+});
 
 fastify.get("/health", (request, reply) => {
   return reply.status(200).send({
@@ -12,12 +22,24 @@ fastify.get("/health", (request, reply) => {
   });
 });
 
-fastify.get("/test", (request, reply) => {
-  const { userId } = Clerk.getAuth(request);
-  if (!userId) {
-    return reply.send({ message: "You are not logget in!! " });
+fastify.get("/auths/order-page", async (request, reply) => {
+  try {
+    const { userId } = Clerk.getAuth(request);
+
+    if (!userId) {
+      return reply.status(401).send({ message: "❌ Não logado" });
+    }
+
+    console.log("User ID:", userId);
+
+    return reply.send({
+      message: "✅ Order service autenticado",
+      userId,
+    });
+  } catch (err) {
+    console.error("❌ Erro no Order Service:", err);
+    return reply.status(500).send({ message: "Erro interno do Order Service" });
   }
-  return reply.send({ message: "Order service is authenticated " });
 });
 
 const start = async () => {
