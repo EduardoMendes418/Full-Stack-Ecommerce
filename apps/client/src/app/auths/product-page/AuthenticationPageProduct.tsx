@@ -1,5 +1,5 @@
 "use client";
-import 'dotenv/config.js';
+import "dotenv/config.js";
 import { useEffect, useState } from "react";
 import {
   useAuth,
@@ -8,7 +8,6 @@ import {
   SignOutButton,
 } from "@clerk/nextjs";
 
-
 export default function AuthenticationPage() {
   const { isSignedIn, userId, getToken } = useAuth();
   const [data, setData] = useState<any>(null);
@@ -16,6 +15,7 @@ export default function AuthenticationPage() {
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   const backendOrdersUrl = process.env.NEXT_PUBLIC_BACKEND_ORDERS_URL;
+  const backendPaymentUrl = process.env.NEXT_PUBLIC_BACKEND_PAYMENT_URL;
 
   useEffect(() => {
     if (!isSignedIn || !backendUrl || !backendOrdersUrl) return;
@@ -31,13 +31,26 @@ export default function AuthenticationPage() {
         });
         const productJson = await productRes.json();
 
-        const orderRes = await fetch(`${backendOrdersUrl}/auths/order-page`, {
+        const orderRes = await fetch(`${backendOrdersUrl}/auths/product-page`, {
           headers: { Authorization: `Bearer ${token}` },
           credentials: "include",
         });
         const orderJson = await orderRes.json();
 
-        setData({ product: productJson, order: orderJson });
+        const paymentRes = await fetch(
+          `${backendPaymentUrl}/auths/product-page`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            credentials: "include",
+          }
+        );
+        const paymentJson = await paymentRes.json();
+
+        setData({
+          product: productJson,
+          order: orderJson,
+          payment: paymentJson,
+        });
       } catch (err) {
         console.error("❌ Erro ao buscar dados do backend:", err);
       } finally {
@@ -46,7 +59,7 @@ export default function AuthenticationPage() {
     };
 
     fetchData();
-  }, [isSignedIn, getToken, backendUrl, backendOrdersUrl]);
+  }, [isSignedIn, getToken, backendUrl, backendOrdersUrl, backendPaymentUrl]);
 
   if (!isSignedIn) {
     return (

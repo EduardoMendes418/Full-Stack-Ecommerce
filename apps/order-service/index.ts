@@ -22,7 +22,7 @@ fastify.get("/health", (request, reply) => {
   });
 });
 
-fastify.get("/auths/order-page", async (request, reply) => {
+fastify.get("/auths/product-page", async (request, reply) => {
   try {
     const { userId } = Clerk.getAuth(request);
 
@@ -33,7 +33,7 @@ fastify.get("/auths/order-page", async (request, reply) => {
     console.log("User ID:", userId);
 
     return reply.send({
-      message: "✅ Order service autenticado",
+      message: "✅ Order Service autenticado",
       userId,
     });
   } catch (err) {
@@ -45,7 +45,7 @@ fastify.get("/auths/order-page", async (request, reply) => {
 const start = async () => {
   try {
     await fastify.listen({ port: 8001 });
-    console.log("✅ Order service is running on port 8001");
+    console.log("✅ Order Service is running on port 8001");
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
