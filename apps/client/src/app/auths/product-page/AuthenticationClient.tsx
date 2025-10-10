@@ -17,7 +17,7 @@ export default function AuthenticationPageClient() {
       setLoading(true);
       try {
         const token = await getToken();
-        const res = await fetch(`${backendUrl}/auth-page`, {
+        const res = await fetch(`${backendUrl}/auths/product-page`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const json = await res.json();
