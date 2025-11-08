@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
-import { requireAuth } from "@clerk/express";
+import { getAuth, requireAuth } from "@clerk/express";
 import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
@@ -25,6 +25,17 @@ declare global {
 
 app.get("/health", (req: Request, res: Response) => {
   res.json({ status: "ok", timestamp: Date.now() });
+});
+
+app.get("/test", (req, res) => {
+  const auth = getAuth(req)
+  const userId = auth.userId;
+
+  if (!userId) { 
+    return res.status(401).json({ message: "You are not logged in !"});
+  }
+
+  res.json({ message: "Product service authentication"});
 });
 
 app.get("/auths/product-page", requireAuth(), (req, res) => {

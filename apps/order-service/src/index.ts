@@ -3,8 +3,8 @@ import Fastify from "fastify";
 import Clerk from "@clerk/fastify";
 import cors from "@fastify/cors";
 
-
 const fastify = Fastify();
+
 fastify.register(Clerk.clerkPlugin, {
   secretKey: process.env.CLERK_SECRET_KEY!,
 });
@@ -20,6 +20,15 @@ fastify.get("/health", (request, reply) => {
     uptime: process.uptime(),
     timeStamp: Date.now(),
   });
+});
+
+fastify.get("/test", (request, reply) => {
+  const { userId } = Clerk.getAuth(request);
+
+  if (!userId) {
+    return reply.send({ message: "You are not logged in!" });
+  }
+  return reply.send({ message: "Order service is authenticated!" });
 });
 
 fastify.get("/auths/product-page", async (request, reply) => {

@@ -203,7 +203,7 @@ importers:
   apps/order-service:
     dependencies:
       '@clerk/fastify':
-        specifier: ^2.0.0
+        specifier: ^2.4.37
         version: 2.4.37(fastify@5.5.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@fastify/cors':
         specifier: ^11.1.0
