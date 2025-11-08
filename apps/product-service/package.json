@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx --env-file=.env --watch index.ts",
+    "dev": "tsx --env-file=.env --watch ./src/index.ts",
     "check-types": "tsc --noEmit"
   },
   "keywords": [],
